@@ -10,13 +10,17 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-:- module(snail, [action/2,
+:- module(snail,
+          /*[action/2,
                  event/3,
                  init_conditions/1,
-                 friend_desc/3]).
+                 friend_desc/3,
+                 place_desc/3]). */
+    []).
 /** <module> snail stories
  *
  * These are parables, with different messages
+ * TBD - haven't made all these
  *
  * 1) having fun with your friends is more important than accomplishing
  * an unimportant goal
@@ -214,7 +218,7 @@ add_event(
       action{
           pre: [],
           negpre: [gardener],
-          add: [gardener, had_adventure],
+          add: [gardener, had_adventure, gardener_has_appeared],
           remove: [],
           desc: [gardener_appears]
       }).
@@ -242,6 +246,30 @@ action(tea_party,
            remove: [],
            desc: [attended_tea_party]
        }).
+
+event(tea_party,
+      0.4,
+      action{
+          pre:[loc(mushrooms), gardener_has_appeared],
+          negpre: [mushrooms_gone, saved_froggy_home],
+          add: [mushrooms_gone, goal(saved_froggy_home)],
+          remove: [goal(attended_tea_party)],
+          desc: [mushrooms_gone]
+      }).
+
+		 /*******************************
+		 * Froggy's home                *
+		 *******************************/
+
+action(magic_fix,
+       action{
+           pre: [mushrooms_gone, goal(saved_froggy_home)],
+           negpre: [],
+           add: [saved_froggy_home],
+           remove: [goal(saved_froggy_home), mushrooms_gone],
+           desc: [magic_mushrooms_fix]
+       }).
+
 
 theme(help). % Friends help each other
 % theme(friends_before_things).

@@ -66,6 +66,14 @@ happening(Ctx,
           Ctx) -->
     [attended_tea_party].
 happening(Ctx,
+   "When everyone arrived at the party, they discovered Froggy crying disconsolately in the middle of a bare patch of ground. \"Mrs. Cratchet\", he sobbed, \"came and pulled up all the mushrooms, including my beautiful Toadstool home!",
+   Ctx) -->
+    [mushrooms_gone].
+happening(Ctx,
+   "A caterpillar was sitting to one side of the patch, looking at a broken hookah. \"Oh dear\", it said, \"This won\'t do at all. It blew a beautiful blue cloud, and the mushrooms reappeared.",
+   Ctx) -->
+    [magic_mushrooms_fix].
+happening(Ctx,
    "Mrs. Cratchet went back inside to watch her soap opera. The garden residents sighed with relief.", Ctx) -->
      [gardener_leaves].
 happening(Ctx,
